@@ -8,7 +8,7 @@ public class Coin {
     private int id;
     private String name;
     private BigDecimal price;
-    private BigDecimal quantity;
+    private BigDecimal qtd;
     private Timestamp dateTime;
 
     public int getId() {
@@ -35,12 +35,12 @@ public class Coin {
         this.price = price;
     }
 
-    public BigDecimal getQuantity() {
-        return quantity;
+    public BigDecimal getQtd() {
+        return qtd;
     }
 
-    public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
+    public void setQtd(BigDecimal qtd) {
+        this.qtd = qtd;
     }
 
     public Timestamp getDateTime() {
