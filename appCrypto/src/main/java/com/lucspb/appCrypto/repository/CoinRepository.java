@@ -1,5 +1,6 @@
 package com.lucspb.appCrypto.repository;
 
+import com.lucspb.appCrypto.dto.CoinDTO;
 import com.lucspb.appCrypto.entity.Coin;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -35,11 +36,11 @@ public class CoinRepository {
         return coin;
     }
 
-    public List<Coin> getAll(){
-        return jdbcTemplate.query(SELECT_ALL, new RowMapper<Coin>() {
+    public List<CoinDTO> getAll(){
+        return jdbcTemplate.query(SELECT_ALL, new RowMapper<CoinDTO>() {
             @Override
-            public Coin mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Coin coin = new Coin();
+            public CoinDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+                CoinDTO coin = new CoinDTO();
                 coin.setName(rs.getString("name"));
                 coin.setQtd(rs.getBigDecimal("qtd"));
                 return coin;
