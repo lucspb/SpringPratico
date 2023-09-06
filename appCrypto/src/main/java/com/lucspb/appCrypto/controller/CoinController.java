@@ -1,5 +1,6 @@
 package com.lucspb.appCrypto.controller;
 
+import com.lucspb.appCrypto.dto.CoinDTO;
 import com.lucspb.appCrypto.entity.Coin;
 import com.lucspb.appCrypto.repository.CoinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,37 +9,32 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/coin")
 public class CoinController {
 
     @Autowired
     private CoinRepository coinRepository;
 
-    @GetMapping()
+    @GetMapping("/coin")
     public ResponseEntity get(){
-        return new ResponseEntity<>(coinRepository.getAll(), HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(coinRepository.getAll());
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/coin/{name}")
     public ResponseEntity get(@PathVariable String name){
-        try{
-            return new ResponseEntity<>(coinRepository.getByName(name), HttpStatus.OK);
-        } catch(Exception error){
-            return new ResponseEntity<>(error.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        List<Coin> coinList = coinRepository.getByName(name);
+        if(coinList.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Coin not found.");
         }
+        return ResponseEntity.status(HttpStatus.OK).body(coinRepository.getByName(name));
     }
 
-
-
-    @PostMapping()
+    @PostMapping("/coin")
     public ResponseEntity post(@RequestBody Coin coin){
-        try {
-            coin.setDateTime(new Timestamp(System.currentTimeMillis()));
-            return new ResponseEntity<>(coinRepository.insert(coin), HttpStatus.CREATED);
-        } catch (Exception error) {
-            return new ResponseEntity<>(error.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        coin.setDateTime(new Timestamp(System.currentTimeMillis()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(coinRepository.insert(coin));
     }
 }
