@@ -1,6 +1,6 @@
 package com.lucspb.appCrypto.controller;
 
-import com.lucspb.appCrypto.dto.CoinDTO;
+
 import com.lucspb.appCrypto.entity.Coin;
 import com.lucspb.appCrypto.repository.CoinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class CoinController {
@@ -90,4 +89,15 @@ public class CoinController {
         coinRepository.remove(id);
         return ResponseEntity.status(HttpStatus.OK).body("Coin deleted sucessfully");
     }
+
+    @PutMapping("/coin")
+    public ResponseEntity put(@RequestBody Coin coin){
+        List<Coin> novaCoin = coinRepository.getById(coin.getId());
+        if(novaCoin.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Coin not found");
+        }
+        coin.setDateTime(new Timestamp(System.currentTimeMillis()));
+        return ResponseEntity.status(HttpStatus.OK).body(coinRepository.update(coin));
+    }
+
 }

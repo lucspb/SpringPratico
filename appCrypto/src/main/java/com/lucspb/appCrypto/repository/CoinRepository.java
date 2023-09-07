@@ -25,6 +25,8 @@ public class CoinRepository {
 
     private static String DELETE = "delete from coin where id = ?";
 
+    private static String UPDATE = "update coin SET name = ?, price = ?, qtd = ? where id = ?";
+
     private JdbcTemplate jdbcTemplate;
 
     public CoinRepository(JdbcTemplate jdbcTemplate) {
@@ -89,5 +91,16 @@ public class CoinRepository {
 
     public int remove(int id){
         return jdbcTemplate.update(DELETE, id);
+    }
+
+    public Coin update (Coin coin){
+        Object[] attr = new Object[] {
+                coin.getName(),
+                coin.getPrice(),
+                coin.getQtd(),
+                coin.getId()
+        };
+        jdbcTemplate.update(UPDATE, attr);
+        return coin;
     }
 }
