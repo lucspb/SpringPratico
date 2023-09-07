@@ -80,4 +80,14 @@ public class CoinController {
         coin.setDateTime(new Timestamp(System.currentTimeMillis()));
         return ResponseEntity.status(HttpStatus.CREATED).body(coinRepository.insert(coin));
     }
+
+    @DeleteMapping("/coin/{id}")
+    public ResponseEntity delete(@PathVariable int id){
+        List<Coin> novaCoin = coinRepository.getById(id);
+        if(novaCoin.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Coin not found");
+        }
+        coinRepository.remove(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Coin deleted sucessfully");
+    }
 }

@@ -21,6 +21,10 @@ public class CoinRepository {
 
     private static String SELECT_BY_NAME = "select * from coin where name = ?";
 
+    private static String SELECT_BY_ID = "select * from coin where id = ?";
+
+    private static String DELETE = "delete from coin where id = ?";
+
     private JdbcTemplate jdbcTemplate;
 
     public CoinRepository(JdbcTemplate jdbcTemplate) {
@@ -65,5 +69,25 @@ public class CoinRepository {
                 return coin;
             }
         }, attr);
+    }
+
+    public List<Coin> getById(int id){
+        Object[] attr = new Object[] { id };
+        return jdbcTemplate.query(SELECT_BY_ID, new RowMapper<Coin>() {
+            @Override
+            public Coin mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Coin coin = new Coin();
+                coin.setId(rs.getInt("id"));
+                coin.setName(rs.getString("name"));
+                coin.setPrice(rs.getBigDecimal("price"));
+                coin.setQtd(rs.getBigDecimal("qtd"));
+                coin.setDateTime(rs.getTimestamp("datetime"));
+                return coin;
+            }
+        }, attr);
+    }
+
+    public int remove(int id){
+        return jdbcTemplate.update(DELETE, id);
     }
 }
