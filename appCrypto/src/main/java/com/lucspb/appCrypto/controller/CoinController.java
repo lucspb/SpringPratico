@@ -19,47 +19,6 @@ public class CoinController {
     @Autowired
     private CoinRepository coinRepository;
 
-    @Bean
-    public Coin init(){
-        Coin c1 = new Coin();
-        c1.setName("BITCOIN");
-        c1.setPrice(new BigDecimal(100));
-        c1.setQtd(new BigDecimal(0.0001));
-        c1.setDateTime(new Timestamp(System.currentTimeMillis()));
-
-        Coin c2 = new Coin();
-        c2.setName("BITCOIN");
-        c2.setPrice(new BigDecimal(300));
-        c2.setQtd(new BigDecimal(0.0003));
-        c2.setDateTime(new Timestamp(System.currentTimeMillis()));
-
-        Coin c3 = new Coin();
-        c3.setName("ETHERIUM");
-        c3.setPrice(new BigDecimal(500));
-        c3.setQtd(new BigDecimal(0.0025));
-        c3.setDateTime(new Timestamp(System.currentTimeMillis()));
-
-        Coin c4 = new Coin();
-        c4.setName("RIPPLE");
-        c4.setPrice(new BigDecimal(600));
-        c4.setQtd(new BigDecimal(0.0035));
-        c4.setDateTime(new Timestamp(System.currentTimeMillis()));
-
-        Coin c5 = new Coin();
-        c5.setName("CARDANO");
-        c5.setPrice(new BigDecimal(800));
-        c5.setQtd(new BigDecimal(0.0055));
-        c5.setDateTime(new Timestamp(System.currentTimeMillis()));
-
-        coinRepository.insert(c1);
-        coinRepository.insert(c2);
-        coinRepository.insert(c3);
-        coinRepository.insert(c4);
-        coinRepository.insert(c5);
-        return c1;
-    }
-
-
     @GetMapping("/coin")
     public ResponseEntity get(){
         return ResponseEntity.status(HttpStatus.OK).body(coinRepository.getAll());
