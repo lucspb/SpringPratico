@@ -24,6 +24,7 @@ public class CoinController {
         return ResponseEntity.status(HttpStatus.OK).body(coinRepository.getAll());
     }
 
+
     @GetMapping("/coin/{name}")
     public ResponseEntity get(@PathVariable String name){
         List<Coin> coinList = coinRepository.getByName(name);
@@ -33,11 +34,13 @@ public class CoinController {
         return ResponseEntity.status(HttpStatus.OK).body(coinRepository.getByName(name));
     }
 
+
     @PostMapping("/coin")
     public ResponseEntity post(@RequestBody Coin coin){
         coin.setDateTime(new Timestamp(System.currentTimeMillis()));
         return ResponseEntity.status(HttpStatus.CREATED).body(coinRepository.insert(coin));
     }
+
 
     @DeleteMapping("/coin/{id}")
     public ResponseEntity delete(@PathVariable int id){
@@ -49,6 +52,7 @@ public class CoinController {
         return ResponseEntity.status(HttpStatus.OK).body("Coin deleted sucessfully");
     }
 
+
     @PutMapping("/coin")
     public ResponseEntity put(@RequestBody Coin coin){
         List<Coin> novaCoin = coinRepository.getById(coin.getId());
@@ -58,5 +62,9 @@ public class CoinController {
         coin.setDateTime(new Timestamp(System.currentTimeMillis()));
         return ResponseEntity.status(HttpStatus.OK).body(coinRepository.update(coin));
     }
+
+
+
+
 
 }

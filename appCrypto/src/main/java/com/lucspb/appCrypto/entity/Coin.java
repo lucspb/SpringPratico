@@ -1,14 +1,29 @@
 package com.lucspb.appCrypto.entity;
 
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+@Entity
+@Table(name = "coin")
 public class Coin {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private int id;
+
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "PRICE")
     private BigDecimal price;
+
+    @Column(name = "QTD")
     private BigDecimal qtd;
+
+    @Column(name = "DATETIME")
     private Timestamp dateTime;
 
     public int getId() {

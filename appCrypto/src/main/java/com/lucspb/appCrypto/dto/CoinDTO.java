@@ -7,6 +7,11 @@ public class CoinDTO {
     private String name;
     private BigDecimal qtd;
 
+    public CoinDTO(String name, BigDecimal qtd){
+        this.name = name;
+        this.qtd = qtd;
+    }
+
     public String getName() {
         return name;
     }
