@@ -8,22 +8,30 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name= "product")
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
+    private Long id;
 
+    @NotBlank
+    @Column(length = 100)
+    private String description;
+
+    @NotBlank
     @NotNull
-    private String name;
+    @Column(length = 20, precision = 20, scale = 2)
+    private BigDecimal price;
 
-    private boolean isEnabled;
-
-
+    @NotBlank
+    @NotNull
+    private int quantity;
 }
