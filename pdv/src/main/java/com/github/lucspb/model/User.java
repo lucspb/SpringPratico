@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,6 +22,9 @@ public class User {
     private String name;
 
     private boolean isEnabled;
+
+    @OneToMany(mappedBy = "user")
+    private List<Sale> sales;
 
 
 }
