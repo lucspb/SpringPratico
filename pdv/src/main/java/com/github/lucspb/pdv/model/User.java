@@ -1,8 +1,6 @@
-package com.github.lucspb.model;
+package com.github.lucspb.pdv.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
@@ -10,15 +8,15 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Table(name = "user")
+@Entity
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
 
-    @NotNull
+    @Column(length = 100, nullable = false)
     private String name;
 
     private boolean isEnabled;

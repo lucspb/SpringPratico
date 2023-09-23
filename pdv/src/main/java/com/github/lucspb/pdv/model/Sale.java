@@ -1,4 +1,4 @@
-package com.github.lucspb.model;
+package com.github.lucspb.pdv.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -10,16 +10,15 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "sale")
 @Entity
+@Table(name = "sale")
 public class Sale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(name = "sale_date")
+    @Column(name = "sale_date", nullable = false)
     private LocalDate saleDate;
 
     @ManyToOne

@@ -1,6 +1,6 @@
 package com.github.lucspb.pdv;
 
-import com.github.lucspb.model.User;
+import com.github.lucspb.pdv.model.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
