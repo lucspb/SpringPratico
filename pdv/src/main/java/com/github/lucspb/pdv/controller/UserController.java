@@ -8,23 +8,43 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
-@RequestMapping("/user")
 public class UserController {
 
+    @Autowired
     private UserRepository userRepository;
 
-    public UserController(@Autowired UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
-
-    @GetMapping()
+    @GetMapping("/user")
     public ResponseEntity getAll(){
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping("/user")
     public ResponseEntity post(@RequestBody User user){
+        user.setEnabled(true);
         return new ResponseEntity<>(userRepository.save(user), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/user/{id}")
+    public ResponseEntity put(@RequestBody User user){
+        Optional<User> userEdit = userRepository.findById(user.getId());
+        if(userEdit.isPresent()){
+            userRepository.save(user);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+    }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity delete(@PathVariable Long id){
+        Optional<User> userEdit = userRepository.findById(id);
+        if(userEdit.isPresent()){
+            userRepository.delete(userEdit.get());
+            return ResponseEntity.status(HttpStatus.OK).body("User deleted sucessfully.");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+
     }
 }
